@@ -84,8 +84,8 @@ const Navigation = props => {
                                     <div>
                                         <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:ring-offset-2 focus:ring-offset-gray-800 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-50 p-1">
                                             {/* Photo Profile */}
-                                            <img className="h-8 w-8 rounded-full" src="/img/profile.jpg" alt=""/>
-                                            <label className="text-white text-base my-auto ml-2 cursor-pointer">UserName</label>
+                                            <img className="h-8 w-8 rounded-full" src="https://res.cloudinary.com/photobookapp/image/upload/v1629358286/photobook/14400975-FOTO_er8ywf.jpg" alt=""/>
+                                            <label className="text-white text-base my-auto ml-2 cursor-pointer">YNAVITA</label>
                                         </Menu.Button>
                                     </div>
                                     <Transition

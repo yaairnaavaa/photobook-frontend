@@ -2,35 +2,18 @@ import React, { useState, useContext, useEffect } from 'react';
 import moment from "moment";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import swal from 'sweetalert';
-import {
-    Card,
-    CardActions,
-    CardContent,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    TablePagination,
-    Button,
-    Menu,
-    MenuItem,
-    IconButton,
-    Container,
-    Grid,
-    Typography
-  } from "@material-ui/core";
+import { Menu, MenuItem, IconButton } from "@material-ui/core";
   
   const users = [
     {
-      firstname: 'Jane',
-      lastname: 'Cooper',
-      username: 'JC321',
+      firstname: 'Yair',
+      lastname: 'Nava',
+      username: 'ynavita',
       ocupation: 'Web Development',
-      email: 'jane.cooper@example.com',
-      phone: '550123',
+      email: 'ynavita@example.com',
+      phone: '311550123',
       dateCreate: new Date(),
-      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
+      image: 'https://res.cloudinary.com/photobookapp/image/upload/v1629358286/photobook/14400975-FOTO_er8ywf.jpg',
     }
 ]
 const UsersPage = props => {
