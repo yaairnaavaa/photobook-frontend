@@ -14,6 +14,7 @@ function App() {
   return (
     <div>
       <Router>
+        <Navigation/>
         <Switch>
           {/* Public Routes */}
           <Route exact path={routes.default} component={PhotosWallPage}/>  
