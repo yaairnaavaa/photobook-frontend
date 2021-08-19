@@ -4,7 +4,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import swal from 'sweetalert';
 import { Menu, MenuItem, IconButton } from "@material-ui/core";
   
-  const users = [
+const users = [
     {
       firstname: 'Yair',
       lastname: 'Nava',

@@ -14,7 +14,9 @@ function App() {
   return (
     <div>
       <Router>
-        <Navigation/>
+        <div className="sticky top-0 ...">
+          <Navigation/>
+        </div>
         <Switch>
           {/* Public Routes */}
           <Route exact path={routes.default} component={PhotosWallPage}/>  

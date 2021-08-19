@@ -58,8 +58,8 @@ const AccountPage = props => {
                             </table>
                         </div>
                         <div className="text-center my-3">
-                            <IconButton aria-label="edit">
-                                <EditIcon onClick={handleShowModal} />
+                            <IconButton aria-label="edit" onClick={handleShowModal}>
+                                <EditIcon/>
                             </IconButton>
                         </div>
 
