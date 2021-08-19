@@ -1,16 +1,15 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import routes from '../helpers/routes';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { Nav, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+
 // Mat Icons
 import PeopleIcon from '@material-ui/icons/People';
 import BurstModeIcon from '@material-ui/icons/BurstMode';
-import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import AppsIcon from '@material-ui/icons/Apps';
-import HomeIcon from '@material-ui/icons/Home';
 import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import CreateIcon from '@material-ui/icons/Create';
@@ -62,17 +61,17 @@ const Navigation = props => {
                             {/* Options Desktop */}
                             <div className="hidden sm:block sm:ml-6">
                                 <Nav>
-                                    <div className="mr-8">
+                                    <div className="mr-8 focus:ring-offset-gray-800 rounded-full hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-50 p-1">
                                         <Link to={routes.users}>
                                             <PeopleIcon className="text-white w-9"/>
                                         </Link>
                                     </div>
-                                    <div className="mr-8">
+                                    <div className="mr-8 focus:ring-offset-gray-800 rounded-full hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-50 p-1">
                                         <Link to={routes.photosWall}>                        
                                             <AppsIcon className="text-white"/>
                                         </Link>
                                     </div>
-                                    <div>
+                                    <div className=" focus:ring-offset-gray-800 rounded-full hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-50 p-1">
                                         <Link to={routes.myPhotos}>                        
                                             <BurstModeIcon className="text-white"/>
                                         </Link>
@@ -83,10 +82,10 @@ const Navigation = props => {
                                 {/* Profile dropdown */}
                                 <Menu as="div" className="ml-3 relative">
                                     <div>
-                                        <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                                        <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:ring-offset-2 focus:ring-offset-gray-800 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-50 p-1">
                                             {/* Photo Profile */}
                                             <img className="h-8 w-8 rounded-full" src="/img/profile.jpg" alt=""/>
-                                            <label className="text-white text-base my-auto ml-2">UserName</label>
+                                            <label className="text-white text-base my-auto ml-2 cursor-pointer">UserName</label>
                                         </Menu.Button>
                                     </div>
                                     <Transition
@@ -104,6 +103,12 @@ const Navigation = props => {
                                         </NavDropdown.Item>
                                         <NavDropdown.Item >
                                             <ExitToAppIcon/>Sign Out
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item href={routes.login}>
+                                            <VpnKeyIcon/>Login
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item href={routes.register}>
+                                            <CreateIcon/>Sign In
                                         </NavDropdown.Item>
                                     </Menu.Items>
                                     </Transition>
