@@ -151,6 +151,16 @@ export default {
             console.log(error);
         });
     },
+    // Register profile
+    registerProfile : profile =>{
+        return axios.post(apiUrl+'/profile/new',profile)
+        .then(res => {
+            return res.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    },
     setToken : (newToken) => {
         return token = `Bearer ${newToken}`;
     }
