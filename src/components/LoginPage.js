@@ -27,7 +27,7 @@ const LoginPage = props => {
     }
     return (
         <div className="flex flex-1 items-center justify-center mt-5">
-            <div className="rounded-lg sm:border-2 px-4 lg:px-24 py-16 lg:max-w-xl sm:max-w-md w-full text-center">
+            <div className="bg-white rounded-lg sm:border-2 px-4 lg:px-24 py-16 lg:max-w-xl sm:max-w-md w-full text-center">
                 <form className="text-center">
                     <img src="/img/profileLogin.png" className="mx-auto w-1/3"></img>
                     <h1 className="font-bold tracking-wider text-3xl mb-8 w-full text-gray-600">

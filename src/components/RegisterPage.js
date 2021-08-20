@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import routes from '../helpers/routes';
 import swal from 'sweetalert';
+import UserService from '../services/UserService';
 
 const RegisterPage = props => {
     const [user,setUser] = useState({username:"",password1:"",password2:""});
@@ -28,9 +29,25 @@ const RegisterPage = props => {
                 password : user.password1
             }
 
-            console.log(newUser);
-            props.history.push(routes.login);
-
+            UserService.register(newUser).then(data=>{
+                //Verificar si se pudo guardar el registro
+                if(!data.message.msgError){
+                    swal({
+                        title: data.message.msgBody,
+                        text: "Login to continue",
+                        icon: "success",
+                        button: "Accept"
+                    }).then((value) => {
+                        props.history.push(routes.login);
+                    });
+                } else {
+                    swal({
+                        title: data.message.msgBody,
+                        icon: "warning",
+                        button: "Aceptar"
+                    });
+                }
+            });
         } else {
             swal({
                 title: "Passwords do not match",
@@ -43,7 +60,7 @@ const RegisterPage = props => {
 
     return (
         <div className="flex flex-1 items-center justify-center mt-5">
-            <div className="rounded-lg sm:border-2 px-4 lg:px-24 py-16 lg:max-w-xl sm:max-w-md w-full text-center">
+            <div className="bg-white rounded-lg sm:border-2 px-4 lg:px-24 py-16 lg:max-w-xl sm:max-w-md w-full text-center">
                 <form className="text-center">
                     <h1 className="font-bold tracking-wider text-3xl mb-8 w-full text-gray-600">
                         Create an Account
