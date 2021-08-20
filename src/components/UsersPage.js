@@ -3,22 +3,27 @@ import moment from "moment";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import swal from 'sweetalert';
 import { Menu, MenuItem, IconButton } from "@material-ui/core";
-  
-const users = [
-    {
-      firstname: 'Yair',
-      lastname: 'Nava',
-      username: 'ynavita',
-      ocupation: 'Web Development',
-      email: 'ynavita@example.com',
-      phone: '311550123',
-      dateCreate: new Date(),
-      image: 'https://res.cloudinary.com/photobookapp/image/upload/v1629358286/photobook/14400975-FOTO_er8ywf.jpg',
-    }
-]
+import UserService from '../services/UserService';
+const userNotPrifileImage = 'img/profile.jpg';
+
 const UsersPage = props => {
+    const [allUsers, setUsersToList] = useState([]);
     const [anchorEl, setAnchorEl] = React.useState(null);
 
+    useEffect(() => {
+        getUsers();
+    },[]);
+
+    const getUsers = async () => {
+        const loggedUserJSON = window.localStorage.getItem('loggedPhotobookAppUser');
+        if(loggedUserJSON){
+            const userLocal = JSON.parse(loggedUserJSON);
+            UserService.setToken(userLocal.token);
+            UserService.getAllUsers().then(data=>{
+                setUsersToList(allUsers =>  data);
+            });
+        }  
+    }
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -38,14 +43,32 @@ const UsersPage = props => {
         handleClose();
         swal({
             title: "Are you sure to delete the user "+data.username+"?",
-            text: "Once deleted you will lose access to the platform, profile information and stored images",
+            text: "Once deleted, access to the platform will be lost",
             icon: "warning",
             dangerMode: true,
             buttons: ["Cancel",'Delete']
         })
         .then((willDelete) => {
             if (willDelete) {
-                console.log(data);
+                UserService.deleteUser(data._id).then(data=>{
+                    if(!data.message.msgError){
+                        // Eliminado con éxito
+                        swal({
+                            title: data.message.msgBody,
+                            icon: "success",
+                            button: "Accept"
+                        }).then((value) => {
+                            getUsers();
+                        });
+                    } else {
+                        // No se pudo eliminar
+                        swal({
+                            title: data.message.msgBody,
+                            icon: "error",
+                            button: "Accept"
+                        });
+                    }
+                });
             }
         });
     }
@@ -76,12 +99,12 @@ const UsersPage = props => {
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-                                {users.map((user) => (
-                                    <tr key={user.email}>
+                                {allUsers.map((user) => (
+                                    <tr key={user._id}>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <div className="flex items-center">
                                                 <div className="flex-shrink-0 h-10 w-10">
-                                                    <img className="h-10 w-10 rounded-full" src={user.image} alt="" />
+                                                    <img className="h-10 w-10 rounded-full" src={user.profile ? (user.profile.profileImageURL ? user.profile.profileImageURL : userNotPrifileImage) : userNotPrifileImage} alt="" />
                                                 </div>
                                                 <div className="ml-4">
                                                     <div className="text-sm font-medium text-gray-900">{user.firstname} {user.lastname}</div>
@@ -103,7 +126,6 @@ const UsersPage = props => {
                                                 <MoreVertIcon />
                                             </IconButton>
                                             <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-                                                <MenuItem onClick={() => viewProfile(user)}>Show profile</MenuItem>
                                                 <MenuItem onClick={() => deleteUser(user)}>Delete account</MenuItem>
                                             </Menu>
                                         </td>

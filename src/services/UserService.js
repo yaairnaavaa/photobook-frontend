@@ -45,6 +45,20 @@ export default {
             console.log(error);
         });
     },
+    // Get user by username
+    getUserByUserName : (username) =>{
+        return axios.get(apiUrl+'/user/get/'+username,{
+            headers: {
+                'authorization': token
+            }
+        })
+        .then(res => {
+            return res.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    },
     // Delete user by userId
     deleteUser: userId =>{
         return axios.delete(apiUrl+'/user/delete/'+userId,{

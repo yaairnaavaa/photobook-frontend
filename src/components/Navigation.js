@@ -17,6 +17,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import CreateIcon from '@material-ui/icons/Create';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
+const userNotPrifileImage = 'img/profile.jpg';
+
 const navigationUnauthenticated = [
     { name: 'Images Users', href: routes.photosWall, current: false }
 ]
@@ -39,12 +41,17 @@ function classNames(...classes) {
 const Navigation = props => {
     const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(AuthContext);
     const [loginUser, setUserLogin] = useState(null);
+    const [userProfile, setUserProfile] = useState(null);
 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedPhotobookAppUser');
         if (loggedUserJSON) {
             const userLocal = JSON.parse(loggedUserJSON);
             setUserLogin(userLocal);
+            // Obtener perfil de usuario
+            UserService.getUserByUserName(userLocal.username).then(data=>{
+                setUserProfile(userProfile =>  data);
+            });
             UserService.setToken(userLocal.token);
         }
     }, []);
@@ -216,7 +223,7 @@ const Navigation = props => {
                                             <div>
                                                 <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:ring-offset-2 focus:ring-offset-gray-800 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-50 p-1">
                                                     {/* Photo Profile */}
-                                                    <img className="h-8 w-8 rounded-full" src="https://res.cloudinary.com/photobookapp/image/upload/v1629358286/photobook/14400975-FOTO_er8ywf.jpg" alt="" />
+                                                    <img className="h-8 w-8 rounded-full" src={ userProfile ? (userProfile.profile ? (userProfile.profile.profileImageURL ?  userProfile.profile.profileImageURL : userNotPrifileImage) : userNotPrifileImage) : userNotPrifileImage} alt="" />
                                                     <label className="text-white text-base my-auto ml-2 cursor-pointer">{loginUser.username.toUpperCase()}</label>
                                                 </Menu.Button>
                                             </div>
@@ -316,8 +323,8 @@ const Navigation = props => {
                                             <div>
                                                 <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:ring-offset-2 focus:ring-offset-gray-800 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-50 p-1">
                                                     {/* Photo Profile */}
-                                                    <img className="h-8 w-8 rounded-full" src="https://res.cloudinary.com/photobookapp/image/upload/v1629358286/photobook/14400975-FOTO_er8ywf.jpg" alt="" />
-                                                    <label className="text-white text-base my-auto ml-2 cursor-pointer">YNAVITA</label>
+                                                    <img className="h-8 w-8 rounded-full" src={userNotPrifileImage} alt="" />
+                                                    <label className="text-white text-base my-auto ml-2 cursor-pointer">{loginUser.username.toUpperCase()}</label>
                                                 </Menu.Button>
                                             </div>
                                             <Transition

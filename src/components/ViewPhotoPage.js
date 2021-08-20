@@ -61,9 +61,9 @@ const ViewPhotoPage = props => {
         return (
             <>
                 {allComments.length > 0 ? allComments.map((comment) => (
-                    <div className="bg-gray-300 mb-1 rounded-lg p-3  flex flex-col justify-center items-center md:items-start">
+                    <div key={comment._id} className="bg-gray-300 mb-1 rounded-lg p-3  flex flex-col justify-center items-center md:items-start">
                         <div className="flex flex-row justify-center mr-2">
-                            <img alt="avatar" width="48" height="48" className="rounded-full w-10 h-10 mr-4" src="https://res.cloudinary.com/photobookapp/image/upload/v1629358286/photobook/14400975-FOTO_er8ywf.jpg" />
+                            <img alt="avatar" width="48" height="48" className="rounded-full w-10 h-10 mr-4" src={comment.user.profile ? (comment.user.profile.profileImageURL ? comment.user.profile.profileImageURL : userNotPrifileImage) : userNotPrifileImage} />
                             <h3 className="text-purple-600 font-semibold text-lg text-center md:text-left ">{comment.user.username.toUpperCase()}</h3>
                         </div>
                         <p className="text-gray-600 text-lg text-center md:text-left m-0">{comment.comment}</p>
