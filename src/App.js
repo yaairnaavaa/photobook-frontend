@@ -9,6 +9,7 @@ import AccountPage from './components/AccountPage';
 import ViewPhotoPage from './components/ViewPhotoPage';
 import UsersPage from './components/UsersPage';
 import NotFoundPage from './components/NotFoundPage';
+import PrivateRoute from './hooks/PrivateRoute';
 
 function App() {
   return (
@@ -26,11 +27,11 @@ function App() {
           <Route exact path={routes.viewPhoto} component={ViewPhotoPage}/>
           
           {/* User Routes  */}
-          <Route path={routes.myPhotos} component={MyPhotosPage}/>
-          <Route path={routes.account} component={AccountPage}/>
+          <PrivateRoute path={routes.myPhotos} roles={['user','admin']} component={MyPhotosPage}/>
+          <PrivateRoute path={routes.account} roles={['user','admin']} component={AccountPage}/>
           
           {/* Admin Routes */}
-          <Route exact path={routes.users} component={UsersPage}/>
+          <PrivateRoute exact path={routes.users} roles={['admin']} component={UsersPage}/>
 
           {/* Not Found Page */}
           <Route path='*' component={NotFoundPage}/>

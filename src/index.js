@@ -3,8 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AuthProvider from './context/AuthContext';
+
 
 ReactDOM.render(
-    <App></App>,
-  document.getElementById('root')
+  <AuthProvider>
+    <App />
+  </AuthProvider>,
+document.getElementById('root')
 );

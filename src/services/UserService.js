@@ -123,6 +123,20 @@ export default {
             console.log(error);
         });
     },
+    // Save comment
+    saveComment : comment =>{
+        return axios.put(apiUrl+'/image/saveComment',comment,{
+            headers: {
+                'authorization': token
+            }
+        })
+        .then(res => {
+            return res.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    },
     setToken : (newToken) => {
         return token = `Bearer ${newToken}`;
     }

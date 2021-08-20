@@ -1,9 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react';
 import routes from '../helpers/routes';
 import swal from 'sweetalert';
+import UserService from '../services/UserService';
+import {AuthContext} from '../context/AuthContext';
+import { Redirect } from 'react-router-dom';
 
 const LoginPage = props => {
     const [user,setUser] = useState({username:"",password:""});
+    const authContext = useContext(AuthContext);
 
     const onChange = e =>{
         e.preventDefault();
@@ -21,8 +25,26 @@ const LoginPage = props => {
             });
             return;
         } else {
-            console.log(user);
-            props.history.push(routes.account);
+            UserService.login(user).then(data=>{
+                console.log(data);
+                if(data){
+                    authContext.setUser(data.user);
+                    authContext.setIsAuthenticated(data.isAuthenticated);
+    
+                    window.localStorage.setItem(
+                        'loggedPhotobookAppUser', JSON.stringify(data.user)
+                    )
+    
+                    UserService.setToken(data.user.token);
+    
+                    window.location.href = routes.photosWall;
+                } else {
+                    swal({
+                        title: "Username or password are incorrect",
+                        icon: "error"
+                    });
+                }
+            });
         }
     }
     return (
